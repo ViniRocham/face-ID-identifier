@@ -1,5 +1,8 @@
+import os
 import cv2
 from cvzone.FaceDetectionModule import FaceDetector
+import numpy as np
+import time
 
 video = cv2.VideoCapture(0)
 
