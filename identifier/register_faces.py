@@ -1,12 +1,7 @@
 import os
 import cv2
 from cvzone.FaceDetectionModule import FaceDetector
-import numpy as np
 import time
-
-video = cv2.VideoCapture(0)
-
-detector = FaceDetector()
 
 def captureAndSaveFace(img, bbox, face_id):
     if isinstance(bbox, dict) and 'bbox' in bbox:
@@ -22,19 +17,6 @@ def captureAndSaveFace(img, bbox, face_id):
     else:
         print("Invalid bounding box")
 
-
-def loadKnownFaces():
-    known_faces = {}
-    for filename in os.listdir("known_faces"):
-        name = os.path.splitext(filename)[0]
-        known_faces[name] = cv2.imread(os.path.join("known_faces", filename), cv2.IMREAD_GRAYSCALE)
-    return known_faces
-
-
-def identifyFace(face, known_faces):
-    pass
-
-
 video = cv2.VideoCapture(0)
 if not video.isOpened():
     print("Error opening camera. Make sure the camera is connected properly.")
@@ -42,7 +24,6 @@ if not video.isOpened():
 
 detector = FaceDetector()
 
-known_faces = loadKnownFaces()
 face_id = 0
 
 while True:
@@ -53,16 +34,7 @@ while True:
 
     img, bboxes = detector.findFaces(img, draw=True)
 
-    if bboxes:
-        for bbox in bboxes:
-            try:
-                face = cv2.cvtColor(img[bbox['bbox'][1]:bbox['bbox'][3], bbox['bbox'][0]:bbox['bbox'][2]], cv2.COLOR_BGR2GRAY)
-                name = identifyFace(face, known_faces)
-                cv2.putText(img, name, (bbox['bbox'][0], bbox['bbox'][1] - 20), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
-            except Exception as e:
-                print(f"Error processing face: {e}")
-
-    cv2.imshow('Face ID Identifier', img)
+    cv2.imshow('Face Registration', img)
 
     key = cv2.waitKey(1)
     if key == 27:
