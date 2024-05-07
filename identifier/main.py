@@ -65,3 +65,13 @@ while True:
     cv2.imshow('Face ID Identifier', img)
 
     key = cv2.waitKey(1)
+    if key == 27:
+        break
+    elif key == ord('c'):
+        if bboxes:
+            for bbox in bboxes:
+                captureAndSaveFace(img, bbox, f"face_{face_id}")
+                face_id += 1
+
+video.release()
+cv2.destroyAllWindows()
