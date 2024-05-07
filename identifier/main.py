@@ -21,7 +21,7 @@ def captureAndSaveFace(img, bbox, face_id):
             print("Invalid bounding box")
     else:
         print("Invalid bounding box")
-        
+
 
 def loadKnownFaces():
     known_faces = {}
@@ -30,6 +30,9 @@ def loadKnownFaces():
         known_faces[name] = cv2.imread(os.path.join("known_faces", filename), cv2.IMREAD_GRAYSCALE)
     return known_faces
 
+
+def identifyFace(face, known_faces):
+    pass
 
 
 while True:
